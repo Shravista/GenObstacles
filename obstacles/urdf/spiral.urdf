@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<robot name="spiral">
+	<gazebo>
+        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+            <robotNamespace>/spiral</robotNamespace>
+        </plugin>
+    </gazebo>
+    <link name="base_spiral">
+    	<inertial>
+    		<origin xyz="0 0 0" rpy="0 0 0"/>
+    		<mass value = "0.0000006" />
+    		<inertia ixx="9.99e-14" ixy="0.0" ixz="0.0" iyy="9.99e-14" iyz="0.0" izz="9.99e-14"/>
+    	</inertial>
+    	<collision>
+    		<origin xyz="0 0 0" rpy="0 0 0"/>
+    		<geometry>
+				<box size="0.001 0.001 0.001" />
+    		</geometry>
+    	</collision>
+    	<visual>
+			<orgin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry>
+				<box size="0.001 0.001 0.001" />
+    		</geometry>
+    	</visual>
+    </link>
+    <link name="block_spiral">
+    	<inertial>
+    		<origin xyz="0 0 0" rpy="0 0 0"/>
+    		<mass value="647.0" />
+    		<inertia ixx="1120.55"	ixy = "89.55" ixz="53.63" iyy="1109.35" iyz="4.09" izz="1987.27" />
+    	</inertial>
+    	<collision>
+    		<origin xyz="0 0 0" rpy="0 0 0"/>
+    		<geometry>
+    			<mesh filename="package://obstacles/models/meshes/spiral.STL" />
+    		</geometry>
+    	</collision>
+    	<visual>
+    		<origin xyz="0 0 0" rpy="0 0 0" />
+    		<geometry>
+    			<mesh filename="package://obstacles/models/meshes/spiral.STL" />
+    		</geometry>
+    	</visual>
+    </link>
+    <joint name="fxd" type="fixed">
+		<parent link="base_spiral"/>
+		<child link="block_spiral"/>
+		<origin xyz="0 0 0" rpy="0 0 0" />
+	</joint>
+		
+	<gazebo reference="block_spiral">
+        <kp>100000.0</kp>
+        <kd>100000.0</kd>
+        <mu1>10.0</mu1>
+        <mu2>10.0</mu2>
+        <material>Gazebo/PaintedWall</material>
+    </gazebo>
+</robot>
+    

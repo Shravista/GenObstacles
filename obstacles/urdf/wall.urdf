@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<robot name="wall">
+	<gazebo>
+        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+            <robotNamespace>/wall</robotNamespace>
+        </plugin>
+    </gazebo>
+    <link name="base_wall">
+    	<inertial>
+    		<origin xyz="0 0 0" rpy="0 0 0"/>
+    		<mass value = "0.0000006" />
+    		<inertia ixx="9.99e-14" ixy="0.0" ixz="0.0" iyy="9.99e-14" iyz="0.0" izz="9.99e-14"/>
+    	</inertial>
+    	<collision>
+    		<origin xyz="0 0 0" rpy="0 0 0"/>
+    		<geometry>
+				<box size="0.001 0.001 0.001" />
+    		</geometry>
+    	</collision>
+    	<visual>
+			<orgin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry>
+				<box size="0.001 0.001 0.001" />
+    		</geometry>
+    	</visual>
+    </link>
+    <link name="block_wall">
+    	<inertial>
+    		<origin xyz="0 0 0" rpy="0 0 0" />
+    		<mass value="168.75" />
+    		<inertia ixx="57.12890625" ixy="11.865234375" ixz="94.921875" iyy="341.015625" iyz="5.2734375"	izz="285.64453125" />
+    	</inertial>
+    	<collision>
+    		<origin xyz="0 0 0" rpy="0 0 0" />
+    		<geometry>
+    			<mesh filename="package://obstacles/models/meshes/wall.stl" />
+    		</geometry>
+    	</collision>
+    	<visual>
+    		<origin xyz="0 0 0" rpy="0 0 0"/>
+    		<geometry>
+    			<mesh filename="package://obstacles/models/meshes/wall.stl" />
+    		</geometry>
+    	</visual>
+    </link>
+    <joint name="fxd" type="fixed">
+		<parent link="base_wall"/>
+		<child link="block_wall"/>
+		<origin xyz="0 0 0" rpy="0 0 1.5707" />
+	</joint>
+		
+	<gazebo reference="block_wall">
+        <kp>100000.0</kp>
+        <kd>100000.0</kd>
+        <mu1>10.0</mu1>
+        <mu2>10.0</mu2>
+        <material>Gazebo/PaintedWall</material>
+    </gazebo>
+</robot>
+    		
